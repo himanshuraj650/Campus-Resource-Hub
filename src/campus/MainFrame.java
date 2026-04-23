@@ -6,12 +6,16 @@ import java.awt.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * MAIN HUB CONTROLLER
+ * This class coordinates the navigation and manages all application views.
+ */
 public class MainFrame extends JFrame {
     private final DataStore store;
     private final User currentUser;
     
     private final JPanel contentArea = new JPanel(new BorderLayout());
-    private final Map<String, JPanel> panels = new LinkedHashMap<>();
+    private final Map<String, JPanel> panels = new LinkedHashMap<>(); // Cache for all feature panels
     private final JPanel sidebar = new JPanel();
     private String currentNav = null;
 
@@ -26,10 +30,15 @@ public class MainFrame extends JFrame {
         getContentPane().setBackground(Theme.BG);
         setLayout(new BorderLayout());
 
+        // LOAD COMPONENT: The vertical navigation menu
         add(buildSidebar(), BorderLayout.WEST);
+        
+        // LOAD COMPONENT: The dynamic content display area
         add(contentArea, BorderLayout.CENTER);
         
         contentArea.setOpaque(false);
+        
+        // INITIALIZE ALL TABS (Explore, Messages, Dashboard)
         rebuildTabs();
     }
 

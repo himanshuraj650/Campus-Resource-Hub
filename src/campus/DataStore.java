@@ -8,22 +8,37 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * DATA STORE ENGINE
+ * This class handles all Database operations using SQLite.
+ * It uses JDBC (Java Database Connectivity) to perform CRUD operations.
+ */
 public class DataStore {
     private final String dbUrl;
     private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
     public DataStore(String dirPath) {
+        // Create data folder if it doesn't exist
         new File(dirPath).mkdirs();
         this.dbUrl = "jdbc:sqlite:" + dirPath + "/campus.db";
     }
 
+    /**
+     * INITIALIZE DATABASE
+     * Creates all necessary tables if they don't already exist.
+     */
     public void load() {
         try { Class.forName("org.sqlite.JDBC"); } catch (Exception e) {}
         try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
+            // Users table: Stores profile info
             stmt.execute("CREATE TABLE IF NOT EXISTS users (username TEXT PRIMARY KEY, password TEXT, fullName TEXT, campusId TEXT, campusName TEXT DEFAULT 'Cgc University')");
+            // Resources table: Stores items for sharing (Books, Notes, etc.)
             stmt.execute("CREATE TABLE IF NOT EXISTS resources (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, description TEXT, category TEXT, ownerUsername TEXT, status TEXT, borrowerUsername TEXT, borrowedAt TEXT, dueAt TEXT, createdAt TEXT, location TEXT, courseCode TEXT)");
+            // Requests table: Tracks borrow requests sent between students
             stmt.execute("CREATE TABLE IF NOT EXISTS requests (id INTEGER PRIMARY KEY AUTOINCREMENT, resourceId INTEGER, requesterUsername TEXT, message TEXT, days INTEGER, status TEXT, createdAt TEXT, decidedAt TEXT)");
+            // Notifications table: Alert system
             stmt.execute("CREATE TABLE IF NOT EXISTS notifications (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, title TEXT, message TEXT, type TEXT, isRead INTEGER DEFAULT 0, createdAt TEXT)");
+            // Messages table: Peer-to-peer chat history
             stmt.execute("CREATE TABLE IF NOT EXISTS messages (id INTEGER PRIMARY KEY AUTOINCREMENT, fromUser TEXT, toUser TEXT, content TEXT, timestamp TEXT)");
         } catch (SQLException e) {}
     }

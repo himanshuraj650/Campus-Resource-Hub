@@ -161,10 +161,12 @@ public class LoginFrame extends JFrame {
         signup.addActionListener(e -> {
             User u = new User(user.getText().trim(), new String(pass.getPassword()), full.getText().trim(), cid.getText().trim());
             if (store.registerUser(u)) {
-                JOptionPane.showMessageDialog(this, "Welcome aboard! You can sign in now.");
-                cardLayout.show(mainContainer, "login");
+                JOptionPane.showMessageDialog(this, "Welcome aboard! Initializing your dashboard...");
+                MainFrame frame = new MainFrame(store, u);
+                frame.setVisible(true);
+                dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "Oops! This username is already taken.");
+                JOptionPane.showMessageDialog(this, "Oops! This username is already taken. Please choose a unique one.");
             }
         });
         p.add(signup);

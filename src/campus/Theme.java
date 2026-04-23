@@ -4,12 +4,18 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+/**
+ * DESIGN SYSTEM (THEME)
+ * This class defines the global "Style Sheet" for the application.
+ * It ensures a consistent "Masterpiece Studio" look across all panels.
+ */
 public final class Theme {
-    public static final Color ACCENT = new Color(79, 70, 229);
-    public static final Color PRIMARY = new Color(99, 102, 241);
+    // COLOR PALETTE (Hex codes mapped to RGB)
+    public static final Color ACCENT = new Color(79, 70, 229);   // Royal Indigo
+    public static final Color PRIMARY = new Color(99, 102, 241);  // Vibrant Violet
     public static final Color PRIMARY_DARK = new Color(67, 56, 202);
-    public static final Color BG = new Color(243, 244, 246);
-    public static final Color SIDEBAR = new Color(15, 23, 42);
+    public static final Color BG = new Color(243, 244, 246);      // Cloud Grey
+    public static final Color SIDEBAR = new Color(15, 23, 42);   // Midnight Navy
     public static final Color SIDEBAR_HOVER = new Color(30, 41, 59);
     public static final Color SIDEBAR_TEXT = new Color(148, 163, 184); 
     public static final Color CARD = Color.WHITE;
@@ -19,6 +25,7 @@ public final class Theme {
     public static final Color WARNING = new Color(245, 158, 11);
     public static final Color DANGER = new Color(239, 68, 68);
 
+    // TYPOGRAPHY (Using 'Inter' font or SansSerif default)
     public static final Font FONT_TITLE = new Font("Inter", Font.BOLD, 28);
     public static final Font FONT_HEADING = new Font("Inter", Font.BOLD, 16);
     public static final Font FONT_BODY = new Font("Inter", Font.PLAIN, 14);
