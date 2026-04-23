@@ -41,4 +41,4 @@ if %errorlevel% neq 0 (
 del "%sources%"
 
 echo Running Campus Resource Hub...
-java -Djava.io.tmpdir=. -cp "out;lib/*" campus.Main
+java -cp "out;lib/*" campus.Main
